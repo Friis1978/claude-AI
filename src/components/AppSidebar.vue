@@ -1,14 +1,37 @@
+<script setup lang="ts">
+import { ShoppingCart } from 'lucide-vue-next'
+import { useRouter } from 'vue-router'
+import { cn } from '@/lib/utils'
+import { useShoppingLists } from '@/lib/composables/useShoppingLists'
+import TagFilterBar from './TagFilterBar.vue'
+import ListCard from './ListCard.vue'
+import SidebarFooter from './SidebarFooter.vue'
+
+defineProps<{ isOpen: boolean }>()
+defineEmits<{ close: [] }>()
+
+const router = useRouter()
+const { lists, activeList, createList } = useShoppingLists()
+
+const onSelectList = (id: string) => {
+  router.push(`/lists/${id}`)
+}
+
+const onCreateList = async () => {
+  const list = await createList('New List')
+  router.push(`/lists/${list.id}`)
+}
+</script>
+
 <template>
-  <div
-    v-if="isOpen"
-    class="fixed inset-0 z-40 bg-black/50 md:hidden"
-    @click="$emit('close')"
-  />
+  <div v-if="isOpen" class="fixed inset-0 z-40 bg-black/50 md:hidden" @click="$emit('close')" />
   <aside
-    :class="cn(
-      'fixed inset-y-0 left-0 z-50 flex w-72 flex-col bg-slate-900 text-slate-200 transition-transform md:relative md:translate-x-0',
-      isOpen ? 'translate-x-0' : '-translate-x-full',
-    )"
+    :class="
+      cn(
+        'fixed inset-y-0 left-0 z-50 flex w-72 flex-col bg-slate-900 text-slate-200 transition-transform md:relative md:translate-x-0',
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      )
+    "
   >
     <div class="flex items-center gap-2 border-b border-slate-700 px-4 py-4">
       <ShoppingCart class="h-6 w-6 text-indigo-400" />
@@ -33,28 +56,3 @@
     <SidebarFooter @create-list="onCreateList" />
   </aside>
 </template>
-
-<script setup lang="ts">
-import { ShoppingCart } from 'lucide-vue-next'
-import { useRouter } from 'vue-router'
-import { cn } from '@/lib/utils'
-import { useShoppingLists } from '@/lib/composables/useShoppingLists'
-import TagFilterBar from './TagFilterBar.vue'
-import ListCard from './ListCard.vue'
-import SidebarFooter from './SidebarFooter.vue'
-
-defineProps<{ isOpen: boolean }>()
-defineEmits<{ close: [] }>()
-
-const router = useRouter()
-const { lists, activeList, createList } = useShoppingLists()
-
-function onSelectList(id: string) {
-  router.push(`/lists/${id}`)
-}
-
-async function onCreateList() {
-  const list = await createList('New List')
-  router.push(`/lists/${list.id}`)
-}
-</script>

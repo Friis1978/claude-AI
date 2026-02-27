@@ -1,10 +1,3 @@
-<template>
-  <div class="h-full">
-    <router-view v-if="$route.params.id" />
-    <EmptyState v-else />
-  </div>
-</template>
-
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useShoppingLists } from '@/lib/composables/useShoppingLists'
@@ -22,3 +15,10 @@ onMounted(() => {
   fetchTags()
 })
 </script>
+
+<template>
+  <div class="h-full">
+    <router-view v-if="$route.params.id" />
+    <EmptyState v-else />
+  </div>
+</template>

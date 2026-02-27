@@ -1,20 +1,36 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { Minus, Plus, Pencil, Trash2 } from 'lucide-vue-next'
+import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+import { useItems } from '@/lib/composables/useItems'
+import EditItemDialog from './EditItemDialog.vue'
+import ConfirmDialog from './ConfirmDialog.vue'
+import type { ShoppingItem } from '@/lib/types'
+
+defineProps<{
+  item: ShoppingItem
+  listId: string
+}>()
+
+const { toggleItem, incrementQuantity, decrementQuantity, deleteItem } = useItems()
+
+const showEdit = ref(false)
+const confirmDelete = ref(false)
+</script>
+
 <template>
   <div
-    :class="cn(
-      'group flex items-center gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-muted/50',
-      item.checked && 'opacity-60',
-    )"
+    :class="
+      cn(
+        'group flex items-center gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-muted/50',
+        item.checked && 'opacity-60'
+      )
+    "
   >
-    <Checkbox
-      :checked="item.checked"
-      @update:checked="toggleItem(listId, item.id)"
-    />
-    <span
-      :class="cn(
-        'flex-1 text-sm',
-        item.checked && 'line-through text-muted-foreground',
-      )"
-    >
+    <Checkbox :checked="item.checked" @update:checked="toggleItem(listId, item.id)" />
+    <span :class="cn('flex-1 text-sm', item.checked && 'text-muted-foreground line-through')">
       {{ item.name }}
     </span>
 
@@ -48,11 +64,7 @@
       </Button>
     </div>
 
-    <EditItemDialog
-      v-model:open="showEdit"
-      :item="item"
-      :list-id="listId"
-    />
+    <EditItemDialog v-model:open="showEdit" :item="item" :list-id="listId" />
 
     <ConfirmDialog
       v-model:open="confirmDelete"
@@ -64,25 +76,3 @@
     />
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-import { Minus, Plus, Pencil, Trash2 } from 'lucide-vue-next'
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
-import { useItems } from '@/lib/composables/useItems'
-import EditItemDialog from './EditItemDialog.vue'
-import ConfirmDialog from './ConfirmDialog.vue'
-import type { ShoppingItem } from '@/lib/types'
-
-defineProps<{
-  item: ShoppingItem
-  listId: string
-}>()
-
-const { toggleItem, incrementQuantity, decrementQuantity, deleteItem } = useItems()
-
-const showEdit = ref(false)
-const confirmDelete = ref(false)
-</script>

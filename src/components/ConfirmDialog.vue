@@ -1,25 +1,3 @@
-<template>
-  <Dialog :open="open" @update:open="$emit('update:open', $event)">
-    <DialogContent>
-      <DialogHeader>
-        <DialogTitle>{{ title }}</DialogTitle>
-        <DialogDescription>{{ description }}</DialogDescription>
-      </DialogHeader>
-      <DialogFooter>
-        <Button variant="outline" @click="$emit('update:open', false)">
-          Cancel
-        </Button>
-        <Button
-          :variant="variant"
-          @click="onConfirm"
-        >
-          {{ confirmLabel }}
-        </Button>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
-</template>
-
 <script setup lang="ts">
 import { Button } from '@/components/ui/button'
 import {
@@ -44,8 +22,25 @@ const emit = defineEmits<{
   confirm: []
 }>()
 
-function onConfirm() {
+const onConfirm = () => {
   emit('confirm')
   emit('update:open', false)
 }
 </script>
+
+<template>
+  <Dialog :open="open" @update:open="$emit('update:open', $event)">
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>{{ title }}</DialogTitle>
+        <DialogDescription>{{ description }}</DialogDescription>
+      </DialogHeader>
+      <DialogFooter>
+        <Button variant="outline" @click="$emit('update:open', false)"> Cancel </Button>
+        <Button :variant="variant" @click="onConfirm">
+          {{ confirmLabel }}
+        </Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+</template>

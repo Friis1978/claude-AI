@@ -14,7 +14,7 @@ import type {
   UpdateTagPayload,
 } from './types'
 
-async function request<T>(url: string, options?: RequestInit): Promise<T> {
+const request = async <T>(url: string, options?: RequestInit): Promise<T> => {
   const res = await fetch(url, {
     headers: { 'Content-Type': 'application/json' },
     ...options,

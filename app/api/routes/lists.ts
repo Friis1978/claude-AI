@@ -3,11 +3,11 @@ import { prisma } from '../../../lib/prisma.js'
 
 export const listsRouter = Router()
 
-function paramId(req: Request): string {
+const paramId = (req: Request): string => {
   return req.params.id as string
 }
 
-function paramItemId(req: Request): string {
+const paramItemId = (req: Request): string => {
   return req.params.itemId as string
 }
 
@@ -15,9 +15,7 @@ function paramItemId(req: Request): string {
 listsRouter.get('/', async (req: Request, res: Response) => {
   const tagId = req.query.tagId as string | undefined
 
-  const where = tagId
-    ? { tags: { some: { id: tagId } } }
-    : {}
+  const where = tagId ? { tags: { some: { id: tagId } } } : {}
 
   const lists = await prisma.shoppingList.findMany({
     where,
@@ -118,12 +116,14 @@ listsRouter.post('/:id/duplicate', async (req: Request, res: Response) => {
       name: `${original.name} (copy)`,
       tags: { connect: original.tags.map((t: { id: string }) => ({ id: t.id })) },
       items: {
-        create: original.items.map((item: { name: string; quantity: number; categoryId: string }) => ({
-          name: item.name,
-          checked: false,
-          quantity: item.quantity,
-          categoryId: item.categoryId,
-        })),
+        create: original.items.map(
+          (item: { name: string; quantity: number; categoryId: string }) => ({
+            name: item.name,
+            checked: false,
+            quantity: item.quantity,
+            categoryId: item.categoryId,
+          })
+        ),
       },
     },
     include: { tags: true, items: { include: { category: true } } },

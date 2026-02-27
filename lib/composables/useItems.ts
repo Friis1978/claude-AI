@@ -5,7 +5,7 @@ import { useShoppingLists } from './useShoppingLists'
 export function useItems() {
   const { activeList, fetchList } = useShoppingLists()
 
-  async function addItem(listId: string, data: CreateItemPayload) {
+  const addItem = async (listId: string, data: CreateItemPayload) => {
     const item = await api.items.create(listId, data)
     if (activeList.value?.id === listId) {
       activeList.value.items.push(item)
@@ -13,7 +13,7 @@ export function useItems() {
     return item
   }
 
-  async function updateItem(listId: string, itemId: string, data: UpdateItemPayload) {
+  const updateItem = async (listId: string, itemId: string, data: UpdateItemPayload) => {
     // Optimistic update for checkbox toggle and quantity
     if (activeList.value?.id === listId) {
       const item = activeList.value.items.find((i) => i.id === itemId)
@@ -38,28 +38,28 @@ export function useItems() {
     }
   }
 
-  async function deleteItem(listId: string, itemId: string) {
+  const deleteItem = async (listId: string, itemId: string) => {
     await api.items.delete(listId, itemId)
     if (activeList.value?.id === listId) {
       activeList.value.items = activeList.value.items.filter((i) => i.id !== itemId)
     }
   }
 
-  async function toggleItem(listId: string, itemId: string) {
+  const toggleItem = async (listId: string, itemId: string) => {
     const item = activeList.value?.items.find((i) => i.id === itemId)
     if (item) {
       await updateItem(listId, itemId, { checked: !item.checked })
     }
   }
 
-  async function incrementQuantity(listId: string, itemId: string) {
+  const incrementQuantity = async (listId: string, itemId: string) => {
     const item = activeList.value?.items.find((i) => i.id === itemId)
     if (item) {
       await updateItem(listId, itemId, { quantity: item.quantity + 1 })
     }
   }
 
-  async function decrementQuantity(listId: string, itemId: string) {
+  const decrementQuantity = async (listId: string, itemId: string) => {
     const item = activeList.value?.items.find((i) => i.id === itemId)
     if (item && item.quantity > 1) {
       await updateItem(listId, itemId, { quantity: item.quantity - 1 })

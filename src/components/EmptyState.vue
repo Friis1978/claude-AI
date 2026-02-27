@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { ShoppingCart } from 'lucide-vue-next'
+</script>
+
 <template>
   <div class="flex h-full flex-col items-center justify-center gap-4 text-center">
     <div class="rounded-full bg-muted p-6">
@@ -11,7 +15,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ShoppingCart } from 'lucide-vue-next'
-</script>

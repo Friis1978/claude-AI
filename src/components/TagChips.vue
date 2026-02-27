@@ -1,3 +1,26 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { X, Plus } from 'lucide-vue-next'
+import { Button } from '@/components/ui/button'
+import TagPickerDialog from './TagPickerDialog.vue'
+import type { Tag } from '@/lib/types'
+
+const props = defineProps<{ tags: Tag[] }>()
+const emit = defineEmits<{ 'update-tags': [tagIds: string[]] }>()
+
+const showPicker = ref(false)
+
+const removeTag = (tagId: string) => {
+  const newIds = props.tags.filter((t) => t.id !== tagId).map((t) => t.id)
+  emit('update-tags', newIds)
+}
+
+const onUpdateTags = (tagIds: string[]) => {
+  emit('update-tags', tagIds)
+  showPicker.value = false
+}
+</script>
+
 <template>
   <div class="flex flex-wrap items-center gap-1.5">
     <span
@@ -18,31 +41,8 @@
 
     <TagPickerDialog
       v-model:open="showPicker"
-      :selected-ids="tags.map(t => t.id)"
+      :selected-ids="tags.map((t) => t.id)"
       @update="onUpdateTags"
     />
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-import { X, Plus } from 'lucide-vue-next'
-import { Button } from '@/components/ui/button'
-import TagPickerDialog from './TagPickerDialog.vue'
-import type { Tag } from '@/lib/types'
-
-const props = defineProps<{ tags: Tag[] }>()
-const emit = defineEmits<{ 'update-tags': [tagIds: string[]] }>()
-
-const showPicker = ref(false)
-
-function removeTag(tagId: string) {
-  const newIds = props.tags.filter((t) => t.id !== tagId).map((t) => t.id)
-  emit('update-tags', newIds)
-}
-
-function onUpdateTags(tagIds: string[]) {
-  emit('update-tags', tagIds)
-  showPicker.value = false
-}
-</script>

@@ -6,7 +6,7 @@ const tags = ref<Tag[]>([])
 const loading = ref(false)
 
 export function useTags() {
-  async function fetchTags() {
+  const fetchTags = async () => {
     loading.value = true
     try {
       tags.value = await api.tags.getAll()
@@ -15,20 +15,20 @@ export function useTags() {
     }
   }
 
-  async function createTag(data: CreateTagPayload) {
+  const createTag = async (data: CreateTagPayload) => {
     const tag = await api.tags.create(data)
     tags.value.push(tag)
     return tag
   }
 
-  async function updateTag(id: string, data: UpdateTagPayload) {
+  const updateTag = async (id: string, data: UpdateTagPayload) => {
     const updated = await api.tags.update(id, data)
     const index = tags.value.findIndex((t) => t.id === id)
     if (index !== -1) tags.value[index] = updated
     return updated
   }
 
-  async function deleteTag(id: string) {
+  const deleteTag = async (id: string) => {
     await api.tags.delete(id)
     tags.value = tags.value.filter((t) => t.id !== id)
   }

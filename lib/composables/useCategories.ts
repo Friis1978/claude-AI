@@ -6,7 +6,7 @@ const categories = ref<Category[]>([])
 const loading = ref(false)
 
 export function useCategories() {
-  async function fetchCategories() {
+  const fetchCategories = async () => {
     loading.value = true
     try {
       categories.value = await api.categories.getAll()
@@ -15,20 +15,20 @@ export function useCategories() {
     }
   }
 
-  async function createCategory(data: CreateCategoryPayload) {
+  const createCategory = async (data: CreateCategoryPayload) => {
     const category = await api.categories.create(data)
     categories.value.push(category)
     return category
   }
 
-  async function updateCategory(id: string, data: UpdateCategoryPayload) {
+  const updateCategory = async (id: string, data: UpdateCategoryPayload) => {
     const updated = await api.categories.update(id, data)
     const index = categories.value.findIndex((c) => c.id === id)
     if (index !== -1) categories.value[index] = updated
     return updated
   }
 
-  async function deleteCategory(id: string) {
+  const deleteCategory = async (id: string) => {
     await api.categories.delete(id)
     categories.value = categories.value.filter((c) => c.id !== id)
   }

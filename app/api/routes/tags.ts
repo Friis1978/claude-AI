@@ -3,7 +3,7 @@ import { prisma } from '../../../lib/prisma.js'
 
 export const tagsRouter = Router()
 
-function paramId(req: Request): string {
+const paramId = (req: Request): string => {
   return req.params.id as string
 }
 
