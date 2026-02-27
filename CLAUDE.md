@@ -10,6 +10,8 @@ Vue.js shoppinglist application build with the App Router and prisma ORM.
 - UI: Tailwind CSS + shadcn/ui
 - Testing: Jest (uni), Playwright (E2E)
 - Formatting: Prettier + prettier-plugin-tailwindcss
+- Linting: ESLint (flat config) + eslint-plugin-vue + typescript-eslint
+- Git hooks: Husky (runs format + lint on pre-push)
 
 ## Code standards
 
@@ -19,6 +21,7 @@ Vue.js shoppinglist application build with the App Router and prisma ORM.
 - Functions: Always use arrow function syntax — `const myFn = () => {}` and `const myFn = async () => {}`. Never use `function` declarations
 - Vue SFC order: Always put `<script>` first, then `<template>` — never the other way around
 - Formatting: Prettier is configured and runs on save. Run `npm run format` to format all files. Never bypass it
+- Linting: ESLint enforces `no-multiple-empty-lines` (max 1) and `no-explicit-any`. Run `npm run lint` to check. Both run automatically on `git push` via husky
 - Tailwind z-index: Tailwind only includes z-0 to z-50 by default. Use arbitrary values like `z-[200]` for higher stacking contexts
 - Radix Vue dialogs: Never use `<Teleport>` for dropdowns or pickers rendered inside a Radix dialog — render them inline in the DOM tree to avoid `DismissableLayer` capture-phase conflicts
 
@@ -37,6 +40,7 @@ Vue.js shoppinglist application build with the App Router and prisma ORM.
 - 'npm run format': Format all source files with Prettier
 - 'npm run test': Run Jest unit tests
 - 'npm run db:migrate': Run Prisma migrations
+- 'npx husky init': Re-initialise Husky git hooks (run after cloning the repo if hooks are missing)
 
 ## Important Notes
 
