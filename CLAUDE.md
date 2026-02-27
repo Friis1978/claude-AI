@@ -43,11 +43,32 @@ Vue.js shoppinglist application build with the App Router and prisma ORM.
 - 'npm run db:migrate': Run Prisma migrations
 - 'npx husky init': Re-initialise Husky git hooks (run after cloning the repo if hooks are missing)
 
+## Supabase / Database
+
+- Database: Supabase (project ref `irvmiyepkfikvufhryio`, Frankfurt region `aws-1-eu-central-1`)
+- `.env` requires two URLs:
+  - `DATABASE_URL` — transaction pooler on port **6543** with `?pgbouncer=true` (used by Prisma at runtime)
+  - `DIRECT_URL` — session pooler on port **5432** (used by Prisma for migrations/DDL)
+- `prisma/schema.prisma` datasource must declare both:
+  ```prisma
+  datasource db {
+    provider  = "postgresql"
+    url       = env("DATABASE_URL")
+    directUrl = env("DIRECT_URL")
+  }
+  ```
+- `prisma db push` may time out in this environment. If it hangs, apply the migration SQL manually:
+  1. Export the SQL from the migration file
+  2. Split it into individual statements (one per call) — pgbouncer does NOT support multiple statements in a single prepared statement
+  3. Strip `--` comment lines before splitting, otherwise empty statements will be generated
+  4. Run via a `tsx` script using `PrismaClient.$executeRawUnsafe()` with the session pooler URL (port 5432) hardcoded directly in the constructor to bypass pgbouncer for DDL
+- For seeding: `npm run db:seed` uses `npx tsx prisma/seed.ts`
+
 ## Important Notes
 
 - NEVER commit .env files
 - Prisma schema changes must be accompanied by migrations
-- Assume production-grade data safely an consistency
+- Assume production-grade data safety and consistency
 
 ## Build
 
