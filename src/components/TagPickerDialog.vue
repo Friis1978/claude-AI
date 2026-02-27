@@ -60,7 +60,7 @@ const onSave = () => {
         <label
           v-for="tag in tags"
           :key="tag.id"
-          class="flex items-center gap-3 rounded-lg p-2 hover:bg-muted/50"
+          class="hover:bg-muted/50 flex items-center gap-3 rounded-lg p-2"
         >
           <Checkbox :checked="selected.has(tag.id)" @update:checked="toggleTag(tag.id)" />
           <span

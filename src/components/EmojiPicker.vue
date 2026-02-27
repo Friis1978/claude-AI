@@ -82,7 +82,7 @@ const selectEmoji = (emoji: string) => {
         v-for="emoji in emojis"
         :key="emoji"
         type="button"
-        class="flex h-8 w-8 cursor-pointer items-center justify-center rounded text-lg hover:bg-accent/50 focus:bg-accent/50"
+        class="hover:bg-accent/50 focus:bg-accent/50 flex h-8 w-8 cursor-pointer items-center justify-center rounded text-lg"
         @click="selectEmoji(emoji)"
       >
         {{ emoji }}

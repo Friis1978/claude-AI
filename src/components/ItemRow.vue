@@ -24,7 +24,7 @@ const confirmDelete = ref(false)
   <div
     :class="
       cn(
-        'group flex items-center gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-muted/50',
+        'hover:bg-muted/50 group flex items-center gap-3 rounded-lg px-3 py-2 transition-colors',
         item.checked && 'opacity-60'
       )
     "
