@@ -15,7 +15,8 @@
     "db:migrate": "prisma migrate dev",
     "db:seed": "tsx prisma/seed.ts",
     "db:studio": "prisma studio",
-    "format": "prettier --write \"src/**/*.{vue,ts,tsx,css}\" \"app/**/*.ts\" \"lib/**/*.ts\""
+    "format": "prettier --write \"src/**/*.{vue,ts,tsx,css}\" \"app/**/*.ts\" \"lib/**/*.ts\"",
+    "prepare": "husky"
   },
   "dependencies": {
     "@prisma/client": "^6.4.1",
@@ -40,6 +41,7 @@
     "concurrently": "^9.1.2",
     "eslint": "^9.21.0",
     "eslint-plugin-vue": "^9.33.0",
+    "husky": "^9.1.7",
     "postcss": "^8.5.2",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
