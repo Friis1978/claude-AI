@@ -67,7 +67,7 @@ export function useShoppingLists() {
     createList,
     updateList,
     deleteList,
-    
+
     duplicateList,
     setTagFilter,
   }
