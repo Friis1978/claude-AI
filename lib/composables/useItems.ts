@@ -71,6 +71,7 @@ export function useItems() {
     updateItem,
     deleteItem,
     toggleItem,
+
     incrementQuantity,
     decrementQuantity,
   }
