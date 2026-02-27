@@ -41,18 +41,20 @@
 
       <div class="space-y-2 border-t pt-4">
         <h4 class="text-sm font-medium">{{ editingId ? 'Edit' : 'Add' }} Category</h4>
-        <div class="flex flex-wrap gap-2">
-          <Input v-model="formName" placeholder="Name" class="flex-1 min-w-[120px]" />
-          <Input v-model="formEmoji" placeholder="Emoji" class="w-16" />
+        <div class="flex items-center gap-2">
+          <div class="relative shrink-0">
+            <EmojiPicker v-model="formEmoji" />
+          </div>
+          <input v-model="formName" placeholder="Category name" class="flex-1 flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" />
           <input
             v-model="formColor"
             type="color"
-            class="h-10 w-10 cursor-pointer rounded border"
+            class="h-10 w-10 shrink-0 cursor-pointer rounded border"
           />
-          <Button @click="onSave" :disabled="!formName.trim()">
+          <Button class="shrink-0" @click="onSave" :disabled="!formName.trim()">
             {{ editingId ? 'Update' : 'Add' }}
           </Button>
-          <Button v-if="editingId" variant="ghost" @click="resetForm">Cancel</Button>
+          <Button v-if="editingId" variant="ghost" class="shrink-0" @click="resetForm">Cancel</Button>
         </div>
       </div>
     </DialogContent>
@@ -64,6 +66,7 @@ import { ref } from 'vue'
 import { Pencil, Trash2 } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import EmojiPicker from './EmojiPicker.vue'
 import {
   Dialog,
   DialogContent,
