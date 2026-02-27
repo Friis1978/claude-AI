@@ -24,6 +24,7 @@ Vue.js shoppinglist application build with the App Router and prisma ORM.
 - Linting: ESLint enforces `no-multiple-empty-lines` (max 1) and `no-explicit-any`. Run `npm run lint` to check. Both run automatically on `git push` via husky
 - Tailwind z-index: Tailwind only includes z-0 to z-50 by default. Use arbitrary values like `z-[200]` for higher stacking contexts
 - Radix Vue dialogs: Never use `<Teleport>` for dropdowns or pickers rendered inside a Radix dialog — render them inline in the DOM tree to avoid `DismissableLayer` capture-phase conflicts
+- Colors: All theme colors are defined as hex CSS variables in `src/assets/main.css` (e.g. `--primary: #6467f1`). Tailwind references them via `var(--x)` in `tailwind.config.ts`. To change a color, edit the hex value in `main.css` only — never use `hsl()` wrappers or hardcode colors in components
 
 ## Project Structure
 
