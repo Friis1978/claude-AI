@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ShoppingList {
+  id        String         @id @default(uuid())
+  name      String
+  tags      Tag[]          @relation("ListTags")
+  items     ShoppingItem[]
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+model ShoppingItem {
+  id         String       @id @default(uuid())
+  name       String
+  checked    Boolean      @default(false)
+  quantity   Int          @default(1)
+  category   Category     @relation(fields: [categoryId], references: [id])
+  categoryId String
+  list       ShoppingList @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId     String
+  createdAt  DateTime     @default(now())
+}
+
+model Category {
+  id        String         @id @default(uuid())
+  name      String         @unique
+  color     String
+  emoji     String
+  isDefault Boolean        @default(false)
+  items     ShoppingItem[]
+}
+
+model Tag {
+  id        String         @id @default(uuid())
+  name      String         @unique
+  color     String
+  isDefault Boolean        @default(false)
+  lists     ShoppingList[] @relation("ListTags")
+}
