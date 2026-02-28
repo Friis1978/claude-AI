@@ -12,7 +12,7 @@ const showTags = ref(false)
 </script>
 
 <template>
-  <div class="space-y-2 border-t border-slate-700 p-3">
+  <div class="space-y-2 border-t border-border p-3">
     <Button class="w-full" size="sm" @click="$emit('createList')">
       <Plus class="mr-2 h-4 w-4" />
       New List
@@ -21,13 +21,18 @@ const showTags = ref(false)
       <Button
         variant="ghost"
         size="sm"
-        class="flex-1 text-slate-300"
+        class="flex-1 text-muted-foreground"
         @click="showCategories = true"
       >
         <Grid3x3 class="mr-1 h-3.5 w-3.5" />
         Categories
       </Button>
-      <Button variant="ghost" size="sm" class="flex-1 text-slate-300" @click="showTags = true">
+      <Button
+        variant="ghost"
+        size="sm"
+        class="flex-1 text-muted-foreground"
+        @click="showTags = true"
+      >
         <TagIcon class="mr-1 h-3.5 w-3.5" />
         Tags
       </Button>

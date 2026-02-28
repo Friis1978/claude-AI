@@ -14,15 +14,17 @@ defineEmits<{ click: [] }>()
   <button
     :class="
       cn(
-        'flex w-full flex-col gap-1 rounded-lg px-3 py-2.5 text-left transition-colors',
-        active ? 'border-l-2 border-indigo-400 bg-indigo-500/20' : 'hover:bg-slate-800'
+        'flex w-full flex-col gap-1 rounded-lg border border-border px-3 py-2.5 text-left shadow-sm transition-all',
+        active
+          ? 'bg-primary/10 border-l-2 border-primary shadow-md'
+          : 'hover:border-primary/40 hover:bg-accent/80 hover:shadow-md'
       )
     "
     @click="$emit('click')"
   >
-    <span class="truncate text-sm font-medium text-white">{{ list.name }}</span>
+    <span class="truncate text-sm font-medium text-foreground">{{ list.name }}</span>
     <div class="flex items-center gap-2">
-      <span class="text-xs text-slate-400">
+      <span class="text-xs text-muted-foreground">
         {{ list._count.items }} items
         <template v-if="list._checkedCount"> &middot; {{ list._checkedCount }} done </template>
       </span>

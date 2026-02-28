@@ -64,7 +64,7 @@ const onSave = () => {
         >
           <Checkbox :checked="selected.has(tag.id)" @update:checked="toggleTag(tag.id)" />
           <span
-            class="rounded-full px-2.5 py-0.5 text-xs font-medium text-white"
+            class="rounded-full px-2.5 py-0.5 text-xs font-medium text-primary-foreground"
             :style="{ backgroundColor: tag.color }"
           >
             {{ tag.name }}

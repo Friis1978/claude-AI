@@ -26,7 +26,7 @@ const onUpdateTags = (tagIds: string[]) => {
     <span
       v-for="tag in tags"
       :key="tag.id"
-      class="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium text-white"
+      class="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium text-primary-foreground"
       :style="{ backgroundColor: tag.color }"
     >
       {{ tag.name }}
